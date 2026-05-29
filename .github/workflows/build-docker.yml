@@ -1,0 +1,32 @@
+name: Build Docker Image
+
+#Lo ejecutamos cuando hay un push o pull reuqest al main
+on: 
+    push: 
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build-docker:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Descargar codigo del respositorio
+              uses: actions/checkout@v4
+
+              #Constuye la imagen del coker usando el dockerfile
+            - name: Construir imagen Docker
+              run: docker build -t adrigomezll/pokedex-vue:latest .
+
+              #Si es un push, inicia sesion en el dockerhub
+            - name: Login en Docker Hub
+              if: github.event_name == 'push'
+              run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+              #si es un push, sube la imagen actualizada al docker hub bajo la etiqueta latest
+            - name: Subir imagen a Docker Hub
+              if: github.event_name == 'push'
+              run: docker push adrigomezll/pokedex-vue:latest
