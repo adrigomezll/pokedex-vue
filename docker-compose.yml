@@ -1,0 +1,12 @@
+services:
+  pokedex:
+
+  #Usamos la imagen que hemos creado con docker
+   image: pokedex-vue
+
+  #le damos nombre al contenedor
+   container_name: pokedex_vue-compose
+
+  #El puerto 8080 de nuestro ordenador apunta al 80 del contenedor, que es donde esta el nginx
+   ports:
+    - 8080:80
