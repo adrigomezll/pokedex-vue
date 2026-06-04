@@ -1,0 +1,18 @@
+server {
+    #Escucha al puerto 80 que es el inteno del contendor
+    listen 80;
+    server_name localhost;
+
+    #Aqui es donde copiamos nuestra aplicaion vue compilada  
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri /index.html;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+}

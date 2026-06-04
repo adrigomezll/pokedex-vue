@@ -18,6 +18,9 @@ RUN npm run build
 #Usamos una imagen nginx
 FROM nginx:alpine
 
+#Copiamos la configuracion personalizada del nginx dentro del contendor   
+COPY default.nginx /etc/nginx/conf.d/default.conf
+
 #Copiamos la carpeta dist dentro del nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
