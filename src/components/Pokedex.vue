@@ -100,7 +100,7 @@
 
         <div class="pokedex">
 
-            <h1>POKEDEX</h1>
+            <h1>POKEDEX VUE</h1>
 
             <p v-if="cargando">cargando...</p>
 
